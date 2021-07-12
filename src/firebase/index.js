@@ -14,7 +14,6 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-
 const createTask = (userUid, task) =>
   db
     .collection("users")
@@ -23,4 +22,26 @@ const createTask = (userUid, task) =>
     .doc() //doc() cria um novo doc com um id aleatorio
     .set({ title: task, done: false, date: Date.now() });
 
-export { createTask, db };
+const updateTask = async (task, status) => {
+  // console.log(taskId, status)
+  const userUid = localStorage.getItem("uid");
+
+  db.collection("users")
+    .doc(userUid) //user logado
+    .collection("tasks")
+    .doc(task.id) //doc() cria um novo doc com um id aleatorio
+    .update({ done: status });
+};
+
+const deleteTask = async (task, getTasks) => {
+  // console.log(taskId, status)
+  const userUid = localStorage.getItem("uid");
+
+  db.collection("users")
+    .doc(userUid) //user logado
+    .collection("tasks")
+    .doc(task.id) //doc() cria um novo doc com um id aleatorio
+    .delete();
+};
+
+export { createTask, db, updateTask, deleteTask };

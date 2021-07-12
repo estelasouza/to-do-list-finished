@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import InputTask from "../../components/InputTask";
 import Task from "../../components/Task";
-import { createTask, db } from "../../firebase";
+import { createTask, db, updateTask, deleteTask } from "../../firebase";
 import { Container, WrapTasks, NoTasks } from "./styles";
 
 function ToDo() {
-  const [tasks, setTasks] = useState(null);
+  const [tasks, setTasks] = useState([]);
   const userId = localStorage.getItem("uid");
 
   const handleCreateTask = (task) => {
@@ -17,17 +17,24 @@ function ToDo() {
     const tasksRef = db
       .collection("users")
       .doc(userId) //user logado
-      .collection("tasks").orderBy('date');
+      .collection("tasks")
+      .orderBy("date");
 
     const data = await tasksRef.get();
-    let newData = null;
+    let newData = [];
     data.docs.map((item) => {
-      if (newData) newData = [...newData, item.data()];
-      else newData = [item.data()]
+      newData = [...newData, { ...item.data(), id: item.id }];
     });
     if (newData) setTasks(newData);
   };
 
+  const handleUpdateTask = (task, status) => {
+    updateTask(task, status);
+  };
+
+  const handleDeleteTask = (task) => {
+    deleteTask(task, getTasks);
+  };
   useEffect(() => {
     getTasks();
   }, []);
@@ -35,11 +42,19 @@ function ToDo() {
   return (
     <Container>
       <WrapTasks>
-        {tasks
-          ? tasks.map((item, index) => (
-              <Task key={item.id} isDone={item.done} taskText={item.title} />
-            ))
-          : <NoTasks>Você ainda não tem tarefas!</NoTasks>}
+        {tasks && tasks.length > 0 ? (
+          tasks.map((item) => (
+            <Task
+              key={item.id}
+              task={item}
+              updateTask={handleUpdateTask}
+              deleteTask={handleDeleteTask}
+              getTasks={getTasks}
+            />
+          ))
+        ) : (
+          <NoTasks>Você ainda não tem tarefas!</NoTasks>
+        )}
       </WrapTasks>
       <InputTask createTask={handleCreateTask} />
     </Container>
