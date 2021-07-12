@@ -7,14 +7,24 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position:relative
+  position: relative;
 `;
 
 export const WrapTasks = styled.div`
   width: 100%;
-  height: 100vh;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
   margin-bottom: 30px;
+`;
+
+export const NoTasks = styled.div`
+  width: 100%;
+  height: 400px;
+  display: flex;
+  color: #bcbabf;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
