@@ -6,7 +6,9 @@ import { Container, Logo, Logout } from "./styles";
 function NavBar() {
   return (
     <Container>
-      <Logo src={LogoImg} alt="ToDo list logo" />
+      <a href="/">
+        <Logo src={LogoImg} alt="ToDo list logo" />
+      </a>
       <Logout>Sair</Logout>
     </Container>
   );
