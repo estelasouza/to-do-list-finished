@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Form = styled.form`
   width: 100%;
-  height: 50px;
-  background: blue;
+  height: 100px;
   position: fixed;
-  bottom: 30px;
+  bottom: 0px;
   display: flex;
+  padding-bottom:30px;
+  background:white;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 `;
 

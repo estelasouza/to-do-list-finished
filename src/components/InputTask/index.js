@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import { Container, InputWraper, Input, SendTaskButton } from './styles';
+import { Form, InputWraper, Input, SendTaskButton } from "./styles";
 
-function InputTask() {
-  return <Container>
+function InputTask({ createTask }) {
+  const [input, setInput] = useState("");
+  const handleChange = (e) => setInput(e.target.value);
+  const handleCreateTask = (e) => {
+    e.preventDefault()
+    setInput('')
+    createTask(input)}
+  return (
+    <Form>
       <InputWraper>
-      <Input type="text" placeholder="Crie uma nova tarefa..." />
-      <SendTaskButton>OK</SendTaskButton>
+        <Input
+          type="text"
+          placeholder="Crie uma nova tarefa..."
+          value={input}
+          onChange={handleChange}
+        />
+        <SendTaskButton onClick={handleCreateTask}>OK</SendTaskButton>
       </InputWraper>
-  </Container>;
+    </Form>
+  );
 }
 
 export default InputTask;
