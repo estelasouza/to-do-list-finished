@@ -23,4 +23,4 @@ const createTask = (userUid, task) =>
     .doc() //doc() cria um novo doc com um id aleatorio
     .set({ title: task, done: false, date: Date.now() });
 
-export { createTask, getTasks, db };
+export { createTask, db };
