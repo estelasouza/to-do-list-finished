@@ -22,10 +22,10 @@ function ToDo() {
 
     const data = await tasksRef.get();
     let newData = [];
-    data.docs.map((item) => {
+    data.docs.forEach((item) => {
       newData = [...newData, { ...item.data(), id: item.id }];
     });
-    if (newData) setTasks(newData);
+    setTasks(newData);
   };
 
   const handleUpdateTask = (task, status) => {

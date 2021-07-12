@@ -1,4 +1,5 @@
-import firebase from "firebase/";
+import firebase from "firebase/app";
+import 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKxOG-6vrQnYdNuM9u3iNiQieu_u5tIgw",
@@ -42,6 +43,7 @@ const deleteTask = async (task, getTasks) => {
     .collection("tasks")
     .doc(task.id) //doc() cria um novo doc com um id aleatorio
     .delete();
+    getTasks()
 };
 
 export { createTask, db, updateTask, deleteTask };
