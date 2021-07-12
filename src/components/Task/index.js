@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import {Container, Text} from './styles'
+import React, { useEffect, useState } from "react";
+import { Container, Text } from "./styles";
 
-function Task({ taskText }) {
+function Task({ taskText, isDone }) {
   const [done, setDone] = useState(false);
+  useEffect(() => isDone && setDone(isDone), [isDone]);
   const handleDone = () => {
     setDone((prev) => !prev);
   };
   return (
     <Container done={done} onClick={handleDone}>
-        <Text done={done}>{taskText}</Text>
-      
+      <Text done={done}>{taskText}</Text>
     </Container>
   );
 }
