@@ -11,3 +11,29 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig)
+
+const authUser = firebase.auth()
+
+export const CreateNewUser = (email, password) => {
+  authUser.createUserWithEmailAndPassword(email,password).then((e)=>{
+    console.log(e)
+   
+  }).catch(e=>console.log(e))
+}
+
+export const SingIn = (email,password) => {
+  authUser.signInWithEmailAndPassword(email,password).then((e)=>{
+    console.log(e)
+   
+}).catch(e=>console.log(e))
+}
+
+export const SingOut = ()=>{
+
+}
+
+export const ForgotPassword = (email) => { 
+  authUser.sendPasswordResetEmail(email).then(e=>{
+    console.log('deu certo',e)
+  }).catch(e=>console.log(e))
+}
