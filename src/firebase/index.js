@@ -1,5 +1,5 @@
-import firebase from 'firebase'
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import firebase from "firebase/";
+
 const firebaseConfig = {
   apiKey: "AIzaSyBKxOG-6vrQnYdNuM9u3iNiQieu_u5tIgw",
   authDomain: "todolist-finished.firebaseapp.com",
@@ -7,9 +7,20 @@ const firebaseConfig = {
   storageBucket: "todolist-finished.appspot.com",
   messagingSenderId: "806544678768",
   appId: "1:806544678768:web:4f51ce4f107005d5bdb9b5",
-  measurementId: "G-WYH4JZQ17Z"
+  measurementId: "G-WYH4JZQ17Z",
 };
 
-firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig);
 
-const auth = firebase.auth()
+const db = firebase.firestore();
+
+
+const createTask = (userUid, task) =>
+  db
+    .collection("users")
+    .doc(userUid) //user logado
+    .collection("tasks")
+    .doc() //doc() cria um novo doc com um id aleatorio
+    .set({ title: task, done: false, date: Date.now() });
+
+export { createTask, getTasks, db };
