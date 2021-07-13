@@ -1,18 +1,10 @@
 import './App.css';
-import CreateUser from './pages/User/CreateUser'
-import   Login  from './pages/User/Login'
-import ToDo from "./pages/ToDo";
-import NavBar from "./components/NavBar";
+import Routes from './router';
 
 function App() {
   return (
-    <div className="App">
-      <p></p>
-    <Login></Login>
-      <NavBar />
-      <ToDo />
-    </div>
-  );
+    <Routes></Routes>
+    );
 }
 
 export default App;
