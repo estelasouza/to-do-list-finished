@@ -6,7 +6,7 @@ import { Container, WrapTasks, NoTasks } from "./styles";
 
 function ToDo() {
   const [tasks, setTasks] = useState([]);
-  const userId = localStorage.getItem("uid");
+  const userId = localStorage.getItem("uid") || '00000';
 
   const handleCreateTask = (task) => {
     createTask(userId, task);

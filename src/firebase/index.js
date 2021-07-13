@@ -1,5 +1,4 @@
-import firebase from "firebase/app";
-import 'firebase/firestore'
+import firebase from "firebase";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKxOG-6vrQnYdNuM9u3iNiQieu_u5tIgw",
@@ -14,6 +13,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
+const userUid = localStorage.getItem("uid") || '000';
 
 const createTask = (userUid, task) =>
   db
@@ -24,8 +24,6 @@ const createTask = (userUid, task) =>
     .set({ title: task, done: false, date: Date.now() });
 
 const updateTask = async (task, status) => {
-  // console.log(taskId, status)
-  const userUid = localStorage.getItem("uid");
 
   db.collection("users")
     .doc(userUid) //user logado
@@ -35,8 +33,6 @@ const updateTask = async (task, status) => {
 };
 
 const deleteTask = async (task, getTasks) => {
-  // console.log(taskId, status)
-  const userUid = localStorage.getItem("uid");
 
   db.collection("users")
     .doc(userUid) //user logado
