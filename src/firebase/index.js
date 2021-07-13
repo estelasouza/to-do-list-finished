@@ -51,11 +51,13 @@ export const CreateNewUser = (email, password) => {
   }).catch(e=>console.log(e))
 }
 
-export const SingIn = (email,password) => {
-  authUser.signInWithEmailAndPassword(email,password).then((e)=>{
-    console.log(e)
+export const SingIn = async (email,password) => {
+  await authUser.signInWithEmailAndPassword(email,password).then((e)=>{
+    return e
    
-}).catch(e=>console.log(e))
+}).catch( e=> {
+  console.log(e.message)
+  return e.message })
 }
 
 export const SingOut = ()=>{
@@ -65,7 +67,7 @@ export const SingOut = ()=>{
 export const ForgotPassword = (email) => { 
   authUser.sendPasswordResetEmail(email).then(e=>{
     console.log('deu certo',e)
-  }).catch(e=>console.log(e))
+  }).catch(e=> e)
 }
 
 export { createTask, db, updateTask, deleteTask };

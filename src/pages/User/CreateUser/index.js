@@ -12,14 +12,16 @@ import {CreateNewUser} from '../../../firebase'
         console.log(res)
     };
     return(
-        <>
+        <WrapperCreateUser>
         <p>Email</p>
         <Input value={email} onChange={e=>setEmail(e.target.value)} />
         <p>Password</p>
         <Input value={password} onChange={e=>setPassword(e.target.value)}/>
         <Button onClick={() =>submitUser(email,password)}>Criar conta</Button>
-        </>
+        </WrapperCreateUser>
     )
 }
-
+const WrapperCreateUser = styled.section `
+    background:white;
+`
 export default CreateUser;
