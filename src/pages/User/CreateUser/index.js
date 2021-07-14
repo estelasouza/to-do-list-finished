@@ -37,7 +37,7 @@ import Alert from '@material-ui/lab/Alert';
         <ParagrafMargin>Email</ParagrafMargin>
         <Input value={email} onChange={e=>setEmail(e.target.value)} />
         <ParagrafMargin>Password</ParagrafMargin>
-        <Input value={password} onChange={e=>setPassword(e.target.value)}/>
+        <Input type="password" value={password} onChange={e=>setPassword(e.target.value)}/>
         <DivHidden divDisplay={show} >
 
         <Alert severity="error">{message}</Alert>

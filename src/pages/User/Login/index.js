@@ -38,46 +38,36 @@ export const Login= () => {
       // setMessages(e.message) 
       setMessage(e.message)
       setShow('inline')
-      return e.message })
-    
-      // if(messegess === ''){
-      //   history.push('/')
-      // }
-    };
-    // useEffect(()=>{
-    //   const uid = localStorage.getItem('uid')
-    //   if(uid) history.push("/");
-
-    function handleClick() {
-      history.push("/home");
-    }
-    // })
-    // const handleLogin = () => {
-    //   const authenticated = LoginUser(email, password)
-    //   if (authenticated) history.push("/")
-    //   }
-    const handleOpenPass = () => {
+      return e.message }) 
+    }; 
+      
+      function handleClick() {
+        history.push("/home");
+      }
+      
+      const handleOpenPass = () => {
         setForgotPassword(true);
       };
-    
+      
       const handleClosePass = () => {
         setForgotPassword(false);
       };
-
+      
       const handleOpenUser = () => {
         setNewAccount(true);
       };
-    
+      
       const handleCloseUser = () => {
         setNewAccount(false);
       };
+    
 
     return(
         <WrapperLogin>
         <ParagrafLeft>Email</ParagrafLeft>
        <Input value={email} onChange={e=>setEmail(e.target.value)} />
         <ParagrafLeft>Password</ParagrafLeft>
-        <Input value={password} onChange={e=>setPassword(e.target.value)}/>
+        <Input type="password" value={password} onChange={e=>setPassword(e.target.value)}/>
         <LinkBoldPassword onClick={
             ()=>handleOpenPass()
         }>Esqueceu a senha?</LinkBoldPassword>
