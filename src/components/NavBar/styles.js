@@ -14,7 +14,7 @@ export const Logo = styled.img`
   cursor: pointer;
 `;
 
-export const Logout = styled.div`
+export const Logout = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;

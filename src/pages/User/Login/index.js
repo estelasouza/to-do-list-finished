@@ -1,8 +1,9 @@
+import React,{ useEffect, useState } from 'react';
 import styled from "styled-components";
-import React,{ useState } from 'react';
+import { useHistory } from "react-router-dom";
+
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
-import {SingIn} from '../../../firebase'
 import Alert from '@material-ui/lab/Alert';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -10,6 +11,8 @@ import Fade from '@material-ui/core/Fade';
 import ForgotPassoword from '../ForgotPassword';
 import CreateUser from '../CreateUser';
 import { makeStyles } from '@material-ui/core/styles';
+import firebase from 'firebase';
+
 
 export const Login= () => {
     const [email, setEmail] = useState('')
@@ -17,18 +20,42 @@ export const Login= () => {
     const [message, setMessage] = useState('')
     const [forgotPassword,setForgotPassword]= useState(false)
     const [newAccount,setNewAccount]= useState(false)
+    const [show, setShow ] = useState('')
+
     const classes = useStyles();
+    const history = useHistory();
+    // const [messegess,setMessages] = useState('')
 
     const LoginUser = async (email,password)=>{
-       const res = await SingIn(email,password)
-       if(res){
-           console.log('aquiiiiii', res)
-       }
-    //    const message = res.message
-    //    setMessage(message)
+      const authUser = firebase.auth()
+      await authUser.signInWithEmailAndPassword(email,password).then((e)=>{
+        localStorage.setItem('uid',e.user.uid)
+        handleClick()
         
+        return e
+       
+    }).catch( e=> {
+      // setMessages(e.message) 
+      setMessage(e.message)
+      setShow('inline')
+      return e.message })
+    
+      // if(messegess === ''){
+      //   history.push('/')
+      // }
     };
+    // useEffect(()=>{
+    //   const uid = localStorage.getItem('uid')
+    //   if(uid) history.push("/");
 
+    function handleClick() {
+      history.push("/home");
+    }
+    // })
+    // const handleLogin = () => {
+    //   const authenticated = LoginUser(email, password)
+    //   if (authenticated) history.push("/")
+    //   }
     const handleOpenPass = () => {
         setForgotPassword(true);
       };
@@ -54,16 +81,19 @@ export const Login= () => {
         <LinkBoldPassword onClick={
             ()=>handleOpenPass()
         }>Esqueceu a senha?</LinkBoldPassword>
+        <DivHidden divDisplay={show} >
+
         <Alert severity="error">{message}</Alert>
+        </DivHidden>
         <Button onClick={()=>LoginUser(email,password)}>Login</Button>
         <span>
 
         <ParagrafLeft onClick={()=>{
 
         }}>Não tem conta ?</ParagrafLeft>
-        <LinkBold onClick={()=>{
-           handleOpenUser()
-        }}> Crie agora mesmo</LinkBold>
+        <LinkBold onClick={
+           handleOpenUser
+        }> Crie agora mesmo</LinkBold>
         </span>
 
         <Modal
@@ -120,6 +150,10 @@ cursor:pointer;
 const LinkBoldPassword = styled.a`
 cursor:pointer;
 font-size:15px;
+`
+
+const DivHidden = styled.div `
+  display:${props => props.divDisplay || "none"};
 `
 
 const useStyles = makeStyles((theme) => ({

@@ -2,20 +2,25 @@ import styled from "styled-components";
 import React, { useState } from 'react';
 import Input from '../../../components/Input'
 import Button from '../../../components/Button'
-import {ForgotPassword} from '../../../firebase'
+import firebase from "firebase";
 
 
 const ForgotPassoword = () => {
     const [email, setEmail] = useState('')
-    const sendEmail = (email) =>{
-      const res = ForgotPassword(email)
-      console.log(res)
+      const authUser = firebase.auth()
+    const sendEmail = (email ) => {
+      authUser.sendPasswordResetEmail(email).then(e=>{
+        console.log('deu certo',e)
+      }).catch(e=> e)
     }
+    
     return(
         <WrapperForgotPassword>
         <h2>Recuperar a senha</h2>
         <ParagrafMargin>Email</ParagrafMargin>
-        <Input onChange={e=>setEmail(e.target.event)} />
+        <Input onChange={e=>{
+          setEmail(e.target.value)
+          }} />
         <Button onClick={() =>sendEmail(email)}>Recuperar</Button>
         </WrapperForgotPassword>
     )
@@ -32,7 +37,7 @@ const WrapperForgotPassword = styled.section`
     flex-wrap: nowrap;
     align-items: center;
 `
-const ParagrafMargin = styled.p `
+export const ParagrafMargin = styled.p `
   margin:20px;
 `
 
