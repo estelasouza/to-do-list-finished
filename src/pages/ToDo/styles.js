@@ -16,7 +16,7 @@ export const WrapTasks = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 120px;
 `;
 
 export const NoTasks = styled.div`
