@@ -33,7 +33,7 @@ const ForgotPassoword = () => {
         <WrapperForgotPassword>
         <h2>Recuperar a senha</h2>
         <ParagrafMargin>Email</ParagrafMargin>
-        <Input onChange={e=>{
+        <Input type="email" onChange={e=>{
           setEmail(e.target.value)
           }} />
            <DivHidden divDisplay={show} >
@@ -51,7 +51,7 @@ const ForgotPassoword = () => {
 const WrapperForgotPassword = styled.section`
   background:white;
   width:320px;
-  
+  padding:30px;
   display:flex;
   border-radius:14px;
   flex-direction: column;

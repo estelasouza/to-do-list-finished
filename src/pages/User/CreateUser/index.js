@@ -35,7 +35,7 @@ import Alert from '@material-ui/lab/Alert';
         <WrapperCreateUser>
         <h2>Criar novo usuario</h2>
         <ParagrafMargin>Email</ParagrafMargin>
-        <Input value={email} onChange={e=>setEmail(e.target.value)} />
+        <Input type="email" value={email} onChange={e=>setEmail(e.target.value)} />
         <ParagrafMargin>Password</ParagrafMargin>
         <Input type="password" value={password} onChange={e=>setPassword(e.target.value)}/>
         <DivHidden divDisplay={show} >
@@ -53,7 +53,7 @@ import Alert from '@material-ui/lab/Alert';
 const WrapperCreateUser = styled.section `
 background:white;
   width:320px;
-  
+  padding:30px;
   display:flex;
   border-radius:14px;
   flex-direction: column;

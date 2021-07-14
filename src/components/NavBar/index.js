@@ -6,7 +6,7 @@ import firebase from "firebase";
 function NavBar() {
   const history =  useHistory()
   const authUser = firebase.auth()
-
+  const token = localStorage.getItem('uid')
   const Logoutt = () =>{
     localStorage.clear()
     history.push('/login')
@@ -17,7 +17,7 @@ function NavBar() {
       <a href="/">
         <Logo src={LogoImg} alt="ToDo list logo" />
       </a>
-      <Logout onClick={()=>Logoutt()}>Sair</Logout>
+      {token && <Logout onClick={()=>Logoutt()}>Sair</Logout>}
     </Container>
   );
 }
