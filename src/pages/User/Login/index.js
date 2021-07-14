@@ -17,9 +17,9 @@ import firebase from 'firebase';
 export const Login= () => {
     const [email, setEmail] = useState('')
     const [password,setPassword] = useState('')
-    const [message, setMessage] = useState('')
     const [forgotPassword,setForgotPassword]= useState(false)
     const [newAccount,setNewAccount]= useState(false)
+    const [message, setMessage] = useState('')
     const [show, setShow ] = useState('')
 
     const classes = useStyles();
@@ -152,7 +152,7 @@ cursor:pointer;
 font-size:15px;
 `
 
-const DivHidden = styled.div `
+export const DivHidden = styled.div `
   display:${props => props.divDisplay || "none"};
 `
 

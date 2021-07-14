@@ -10,7 +10,7 @@ const Button = styled.button`
     padding: 1rem 1.5rem;
     cursor: pointer;
     margin-left: 0px;
-    height:50px;
+    height:${props => props.height ? props.height  : '60px'};
 
 `;
 
