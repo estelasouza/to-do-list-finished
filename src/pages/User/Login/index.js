@@ -13,7 +13,7 @@ import CreateUser from "../CreateUser";
 import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
 
-export const Login = () => {
+export const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [forgotPassword, setForgotPassword] = useState(false);
@@ -23,13 +23,6 @@ export const Login = () => {
 
   const classes = useStyles();
   const history = useHistory();
-  // const [messegess,setMessages] = useState('')
-
-  useEffect(() => {
-    const token = localStorage.getItem('uid')
-    if(token) history.push('/home')
-  }, [])
-
 
   const LoginUser = async (email, password) => {
     const authUser = firebase.auth();
@@ -37,7 +30,8 @@ export const Login = () => {
       .signInWithEmailAndPassword(email, password)
       .then((e) => {
         localStorage.setItem("uid", e.user.uid);
-        handleClick();
+        handleLogin(e.user.uid);
+        history.push("/home");
 
         return e;
       })
@@ -48,10 +42,6 @@ export const Login = () => {
         return e.message;
       });
   };
-
-  function handleClick() {
-    history.push("/home");
-  }
 
   const handleOpenPass = () => {
     setForgotPassword(true);
@@ -71,65 +61,65 @@ export const Login = () => {
 
   return (
     <WraperHelper>
-    <WrapperLogin>
-      <ParagrafLeft>Email</ParagrafLeft>
-      <Input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <ParagrafLeft>Password</ParagrafLeft>
-      <Input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <LinkBoldPassword onClick={() => handleOpenPass()}>
-        Esqueceu a senha?
-      </LinkBoldPassword>
-      <DivHidden divDisplay={show}>
-        <Alert severity="error">{message}</Alert>
-      </DivHidden>
-      <Button onClick={() => LoginUser(email, password)}>Login</Button>
-      <span>
-        <ParagrafLeft onClick={() => {}}>Não tem conta ?</ParagrafLeft>
-        <LinkBold onClick={handleOpenUser}> Crie agora mesmo</LinkBold>
-      </span>
+      <WrapperLogin>
+        <ParagrafLeft>Email</ParagrafLeft>
+        <Input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <ParagrafLeft>Password</ParagrafLeft>
+        <Input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <LinkBoldPassword onClick={() => handleOpenPass()}>
+          Esqueceu a senha?
+        </LinkBoldPassword>
+        <DivHidden divDisplay={show}>
+          <Alert severity="error">{message}</Alert>
+        </DivHidden>
+        <Button onClick={() => LoginUser(email, password)}>Login</Button>
+        <span>
+          <ParagrafLeft onClick={() => {}}>Não tem conta ?</ParagrafLeft>
+          <LinkBold onClick={handleOpenUser}> Crie agora mesmo</LinkBold>
+        </span>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={forgotPassword}
-        className={classes.modal}
-        onClose={handleClosePass}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={forgotPassword}>
-          <ForgotPassoword></ForgotPassoword>
-        </Fade>
-      </Modal>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={forgotPassword}
+          className={classes.modal}
+          onClose={handleClosePass}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={forgotPassword}>
+            <ForgotPassoword></ForgotPassoword>
+          </Fade>
+        </Modal>
 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={newAccount}
-        className={classes.modal}
-        onClose={handleCloseUser}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={newAccount}>
-          <CreateUser></CreateUser>
-        </Fade>
-      </Modal>
-    </WrapperLogin>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={newAccount}
+          className={classes.modal}
+          onClose={handleCloseUser}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={newAccount}>
+            <CreateUser></CreateUser>
+          </Fade>
+        </Modal>
+      </WrapperLogin>
     </WraperHelper>
   );
 };
@@ -138,11 +128,9 @@ const WraperHelper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
 `;
 const WrapperLogin = styled.section`
   display: inline-grid;
-  
 `;
 const ParagrafLeft = styled.p`
   display: inline-flex;
