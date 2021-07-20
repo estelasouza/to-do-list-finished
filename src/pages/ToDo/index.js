@@ -9,7 +9,7 @@ function ToDo() {
   const userId = localStorage.getItem("uid") || "00000";
 
   const handleCreateTask = (task) => {
-    createTask(userId, task);
+    createTask(task);
     getTasks();
   };
 
