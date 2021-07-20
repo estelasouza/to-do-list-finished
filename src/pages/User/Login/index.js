@@ -10,8 +10,9 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import ForgotPassoword from "../ForgotPassword";
 import CreateUser from "../CreateUser";
-import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
+
+import {WraperHelper, WrapperLogin, ParagrafLeft, DivHidden, useStyles, LinkBoldPassword, LinkBold} from './styles';
 
 export const Login = ({ handleLogin }) => {
   const [email, setEmail] = useState("");
@@ -123,45 +124,5 @@ export const Login = ({ handleLogin }) => {
     </WraperHelper>
   );
 };
-const WraperHelper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const WrapperLogin = styled.section`
-  display: inline-grid;
-`;
-const ParagrafLeft = styled.p`
-  display: inline-flex;
-  margin-top: 30px;
-`;
-const LinkBold = styled.a`
-  font-weight: bold;
-  cursor: pointer;
-`;
-
-const LinkBoldPassword = styled.a`
-  cursor: pointer;
-  font-size: 15px;
-`;
-
-export const DivHidden = styled.div`
-  display: ${(props) => props.divDisplay || "none"};
-`;
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
 
 export default Login;

@@ -1,68 +1,55 @@
 import styled from "styled-components";
-import React, { useState } from 'react';
-import Input from '../../../components/Input'
-import Button from '../../../components/Button'
+import React, { useState } from "react";
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 import firebase from "firebase";
-
-import {DivHidden} from '../Login'
-import Alert from '@material-ui/lab/Alert';
+import {ParagrafMargin,  WrapperForgotPassword } from "./styles";
+import { DivHidden } from "../Login/styles";
+import Alert from "@material-ui/lab/Alert";
 
 const ForgotPassoword = () => {
-    const [email, setEmail] = useState('')
-    const [show, setShow ] = useState('')
-    const [showDone, setShowDone ] = useState('')
-    const [message, setMessage] = useState('')
+  const [email, setEmail] = useState("");
+  const [show, setShow] = useState("");
+  const [showDone, setShowDone] = useState("");
+  const [message, setMessage] = useState("");
 
-      const authUser = firebase.auth()
-    const sendEmail = (email ) => {
-      authUser.sendPasswordResetEmail(email).then(e=>{
-        console.log('deu certo',e)
-        setMessage('Verify your email to reset your password ')
-    setShowDone('inline')
-       setEmail('')
-       setShow('none')
-      }).catch(e=>{
-        setMessage(e.message)
-        setShow('inline')
-        setShowDone('none')
-        
+  const authUser = firebase.auth();
+  const sendEmail = (email) => {
+    authUser
+      .sendPasswordResetEmail(email)
+      .then((e) => {
+        console.log("deu certo", e);
+        setMessage("Verify your email to reset your password ");
+        setShowDone("inline");
+        setEmail("");
+        setShow("none");
       })
-    }
-    
-    return(
-        <WrapperForgotPassword>
-        <h2>Recuperar a senha</h2>
-        <ParagrafMargin>Email</ParagrafMargin>
-        <Input type="email" onChange={e=>{
-          setEmail(e.target.value)
-          }} />
-           <DivHidden divDisplay={show} >
+      .catch((e) => {
+        setMessage(e.message);
+        setShow("inline");
+        setShowDone("none");
+      });
+  };
 
-<Alert severity="error">{message}</Alert>
-</DivHidden>
-<DivHidden divDisplay={showDone} >
+  return (
+    <WrapperForgotPassword>
+      <h2>Recuperar a senha</h2>
+      <ParagrafMargin>Email</ParagrafMargin>
+      <Input
+        type="email"
+        onChange={(e) => {
+          setEmail(e.target.value);
+        }}
+      />
+      <DivHidden divDisplay={show}>
+        <Alert severity="error">{message}</Alert>
+      </DivHidden>
+      <DivHidden divDisplay={showDone}>
+        <Alert severity="success">{message}</Alert>
+      </DivHidden>
+      <Button onClick={() => sendEmail(email)}>Recuperar</Button>
+    </WrapperForgotPassword>
+  );
+};
 
-<Alert severity="success">{message}</Alert>
-</DivHidden>
-        <Button onClick={() =>sendEmail(email)}>Recuperar</Button>
-        </WrapperForgotPassword>
-    )
-}
-const WrapperForgotPassword = styled.section`
-  background:white;
-  width:320px;
-  padding:30px;
-  display:flex;
-  border-radius:14px;
-  flex-direction: column;
-    justify-content: flex-end;
-    align-content: center;
-    flex-wrap: nowrap;
-    align-items: center;
-`
-export const ParagrafMargin = styled.p `
-  margin:20px;
-`
-
-
-export default ForgotPassoword
+export default ForgotPassoword;
